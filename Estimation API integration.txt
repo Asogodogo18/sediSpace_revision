@@ -1,0 +1,39 @@
+Estimation: Intégration API CDA SOCIAL ( 23 Jours )
+
+Authentification: 4 et 1/2 jours
+	- Connexion : 1 Jour
+	- Inscription: 3 Jours
+	- Mot De Passe Oublié: 1/2 jour
+
+Accueil: 3 Jours
+	- Feed : 2 Jours
+	- Follower suggestion : 1 Jour
+	- Story : ND
+	- Feed Filters: ND 
+
+Recherche: 2 Jours
+	- Fonction Recherche
+	- Filtre Recherche
+
+Post: 6 Jours
+	- Nouveau Poste : 1 Jour
+	- Post Détails (interaction: like, commenter,repost, partager ...)  : 5 Jours
+
+Messages: 2 jours
+	- Fonction Recherche : 1/2 jour
+	- Liste All Messages and Groups : 1/2 jour
+	- Friends : 1/2 jour
+	- conversation : 1/2 jour
+
+Notifications : 1 Jour
+
+Profile: 3 et 1/2 jours
+	- Interaction (send follow requets, Accept/reject followers, followers/following list) : 3 Jours
+	- Users Content : 1/2 jour 
+
+Parametres: 2 et 1/2 jour
+	- Profile update (Info Profile ) : 1/2 jour
+	- security and password (change password and privacy settings) : 1 jour
+	- Divers : 1 jour
+	
+Intégration Cluster Digital Africa non prise en Compte

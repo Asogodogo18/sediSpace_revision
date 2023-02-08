@@ -1,0 +1,134 @@
+import {
+  Box,
+  FeedFilters,
+  Stories,
+  Post,
+  FollowCard,
+  SectionHeader,
+  MainHeader,
+  ErrorDisplayView,
+  FeedSkeleton,
+  EmptyFeed,
+} from "../../../components";
+
+import React, { useEffect, useState } from "react";
+import { ScrollView, StatusBar, FlatList } from "react-native";
+
+import defaultFilters from "../../../data/feed";
+import FollowingList from "../../../data/stories";
+import { SafeAreaView } from "react-native-safe-area-context";
+import useFeedController from "../../../viewController/Feed/FeedController";
+import { useUserContext } from "../../../Context";
+import { EMPTY_FEED_RES } from "../../../constants/general-constants";
+
+const Home = ({ navigation }) => {
+  const { user } = useUserContext();
+  const { getFeedList } = useFeedController();
+  const {
+    data: posts,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = getFeedList(user?.id);
+  const [postData, setPostData] = useState([]);
+  // console.log("posts: ", postData);
+
+  // console.log("user id homescreen: ", posts);
+
+  useEffect(() => {
+    if (posts?.code === 200) {
+      const postsOnly = posts.data.filter((post) => post.thread_id === 0);
+      setPostData(postsOnly);
+    }
+
+    return () => {
+      setPostData([]);
+    };
+  }, [posts]);
+
+  const handleNavigation = (id: string | number) => {
+    navigation.navigate("Accueil", {
+      screen: "Publication",
+      params: { postId: id },
+    });
+  };
+
+  // const { isLoading, posts } = useFeedController();
+  //console.log("posts feed screen: ", posts);
+  console.log("isFecthing", isFetching);
+  console.log("isLoading", isLoading);
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <FeedSkeleton />
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView edges={["left", "right"]} style={{ flex: 1 }}>
+      <StatusBar backgroundColor="white" barStyle={"dark-content"} />
+      {posts?.code !== undefined && posts?.code !== 200 ? (
+        <Box flex={1}>
+          <MainHeader title="Accueil" />
+          {/* <FeedFilters
+            data={defaultFilters}
+            onPress={() => console.log("Press")}
+          />
+          <SectionHeader title={"Now"} more={true} link={() => {}} />
+          <Stories data={FollowingList} /> */}
+          {posts.message.includes(EMPTY_FEED_RES) ? (
+            <EmptyFeed message="Veuillez suivre des utilisateurs afin de recevoir votre feed" />
+          ) : (
+            <ErrorDisplayView message={posts.message} />
+          )}
+        </Box>
+      ) : (
+        <Box flex={1}>
+          <MainHeader title="Accueil" />
+
+          <FlatList
+            ListHeaderComponent={() => (
+              <>
+                {/* <FeedFilters
+                  data={defaultFilters}
+                  onPress={() => console.log("Press")}
+                />
+
+                <SectionHeader title={"Now"} more={true} link={() => {}} />
+
+                <Stories data={FollowingList} /> */}
+              </>
+            )}
+            data={postData}
+            initialNumToRender={10}
+            contentContainerStyle={{ flexGrow: 1 }}
+            style={{}}
+            onEndReachedThreshold={0.3}
+            keyExtractor={(item, i) => `post-0${i}`}
+            renderItem={({ item }) => (
+              <Post data={item} type={"main"} onPress={handleNavigation} />
+            )}
+            ListFooterComponent={() => (
+              <ScrollView
+                horizontal
+                contentContainerStyle={{ paddingBottom: 70 }}
+                showsHorizontalScrollIndicator={false}
+              >
+                <FollowCard />
+                <FollowCard />
+                <FollowCard />
+                <FollowCard />
+              </ScrollView>
+            )}
+            ListFooterComponentStyle={{ marginBottom: 10 }}
+          />
+        </Box>
+      )}
+    </SafeAreaView>
+  );
+};
+
+export default Home;
