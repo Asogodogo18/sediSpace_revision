@@ -9,6 +9,7 @@ import {
   ErrorDisplayView,
   FeedSkeleton,
   EmptyFeed,
+  Text,
 } from "../../../components";
 
 import React, { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ const Home = ({ navigation }) => {
     isFetching,
     isError,
     error,
+    refetch,
   } = getFeedList(user?.id);
   const [postData, setPostData] = useState([]);
   // console.log("posts: ", postData);
@@ -46,6 +48,10 @@ const Home = ({ navigation }) => {
       setPostData([]);
     };
   }, [posts]);
+
+  const onRefreshFeed = async () => {
+    return await refetch(user?.id);
+  };
 
   const handleNavigation = (id: string | number) => {
     navigation.navigate("Accueil", {
@@ -90,40 +96,40 @@ const Home = ({ navigation }) => {
           <MainHeader title="Accueil" />
 
           <FlatList
-            ListHeaderComponent={() => (
-              <>
-                {/* <FeedFilters
-                  data={defaultFilters}
-                  onPress={() => console.log("Press")}
-                />
+            // ListHeaderComponent={() => (
+            //   <>
+            //     <FeedFilters
+            //       data={defaultFilters}
+            //       onPress={() => console.log("Press")}
+            //     />
 
-                <SectionHeader title={"Now"} more={true} link={() => {}} />
+            //     <SectionHeader title={"Now"} more={true} link={() => {}} />
 
-                <Stories data={FollowingList} /> */}
-              </>
-            )}
+            //     <Stories data={FollowingList} />
+            //   </>
+            // )}
             data={postData}
             initialNumToRender={10}
             contentContainerStyle={{ flexGrow: 1 }}
             style={{}}
+            onRefresh={onRefreshFeed}
+            refreshing={isLoading}
             onEndReachedThreshold={0.3}
             keyExtractor={(item, i) => `post-0${i}`}
             renderItem={({ item }) => (
               <Post data={item} type={"main"} onPress={handleNavigation} />
             )}
             ListFooterComponent={() => (
-              <ScrollView
-                horizontal
-                contentContainerStyle={{ paddingBottom: 70 }}
-                showsHorizontalScrollIndicator={false}
+              <Box
+                width={"100%"}
+                height={100}
+                justifyContent={"center"}
+                alignItems={"center"}
               >
-                <FollowCard />
-                <FollowCard />
-                <FollowCard />
-                <FollowCard />
-              </ScrollView>
+                <Text variant={"title"}> Il n'a plus de postes en ce moment</Text>
+              </Box>
             )}
-            ListFooterComponentStyle={{ marginBottom: 10 }}
+            ListFooterComponentStyle={{ paddingBottom: 40 }}
           />
         </Box>
       )}

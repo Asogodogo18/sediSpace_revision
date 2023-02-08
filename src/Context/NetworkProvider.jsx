@@ -9,7 +9,7 @@ export const NetworkProvider = (props) => {
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
-    //   console.log("Is connected?", state.isConnected);
+      //   console.log("Is connected?", state.isConnected);
       setIsConnected(state.isConnected);
     });
 
