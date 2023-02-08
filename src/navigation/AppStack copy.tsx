@@ -52,8 +52,7 @@ const BottomTab = createBottomTabNavigator();
 const StackApp = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {/* <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} /> */}
-      <Stack.Screen name="HomeStack" component={Home} />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen
         name="Publication"
         component={PostDetails}
@@ -62,6 +61,24 @@ const StackApp = () => {
       <Stack.Screen name="Chats" component={Chats} />
       <Stack.Screen name="PosteScreens" component={PosteScreens} />
       <Stack.Screen name="NewMessage" component={NewMessage} />
+      <Stack.Screen
+          name="HomeStack"
+          component={Home}
+          // options={{
+          //   tabBarIcon: ({ focused }) => (
+          //     <Box
+          //       justifyContent={"center"}
+          //       alignItems={"center"}
+          //       style={{ marginTop: Platform.OS === "ios" ? 25 : 0 }}
+          //     >
+          //       <HOME_ICON style={{ color: focused ? "#0ABD1C" : "#D6DBDE" }} />
+          //       <Text variant={focused ? "tabTextActive" : "tabText"}>
+          //         Accueil
+          //       </Text>
+          //     </Box>
+          //   ),
+          // }}
+        />
     </Stack.Navigator>
   );
 };
@@ -78,7 +95,6 @@ const ParametreStack = () => {
 
 const AppStack = () => {
   return (
-
     <LinearGradient style={{ flex: 1 }} colors={["#EFF9FB", "#77FFD9"]}>
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -135,14 +151,9 @@ const AppStack = () => {
           options={{ headerShown: false }}
           component={FollowScreen}
         />
-        {/* <Drawer.Screen name="HomeStack" component={Home} /> */}
-        <Drawer.Screen name="Search" component={Search} />
-
-        <Drawer.Screen name="Messages" component={Messages} />
-        <Drawer.Screen name="Notifications" component={Notifications} />
+        
       </Drawer.Navigator>
     </LinearGradient>
-
   );
 };
 
@@ -160,7 +171,7 @@ const BottomTabNavigator = () => {
             left: 0,
             right: 0,
             backgroundColor: "#FFFF",
-            height: 60,
+            height:60,
           },
         }}
       >

@@ -30,7 +30,13 @@ const CustomDrawer = (props) => {
 
   return (
     <Box flex={1} py={"m"}>
-      <Box alignItems={"center"} height={100} flexDirection={"row"} m={"xl"} pt={'xxl'}>
+      <Box
+        alignItems={"center"}
+        height={100}
+        flexDirection={"row"}
+        m={"xl"}
+        pt={"xxl"}
+      >
         <Avatar
           type="floating"
           source={{
@@ -92,11 +98,10 @@ const CustomDrawer = (props) => {
               alignItems={"center"}
               justifyContent={"center"}
             >
-              <EvilIcons
-                name="user"
-                size={focused ? 38 : 30}
-                color={focused ? "white" : "#666666"}
-              />
+            
+              <MaterialCommunityIcons name="account" 
+                  size={focused ? 38 : 30}
+                  color={focused ? "white" : "#666666"} />
             </Box>
           )}
           label={({ focused }) => {
@@ -115,8 +120,7 @@ const CustomDrawer = (props) => {
           onPress={() => navigation.navigate("Profile", { self: true })}
           focused={isFocused("Profile")}
         />
-
-        <DrawerItem
+        {/* <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
             <Box
@@ -147,8 +151,8 @@ const CustomDrawer = (props) => {
           ]}
           onPress={() => navigation.navigate("Education")}
           focused={isFocused("Education")}
-        />
-        <DrawerItem
+        /> */}
+        {/* <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
             <Box
@@ -179,7 +183,7 @@ const CustomDrawer = (props) => {
           ]}
           onPress={() => navigation.navigate("Tools")}
           focused={isFocused("Tools")}
-        />
+        /> */}
         <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
@@ -212,7 +216,7 @@ const CustomDrawer = (props) => {
           onPress={() => navigation.navigate("Favoris")}
           focused={isFocused("Favoris")}
         />
-        <DrawerItem
+        {/* <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
             <Box
@@ -243,7 +247,7 @@ const CustomDrawer = (props) => {
           ]}
           onPress={() => navigation.navigate("Topics")}
           focused={isFocused("Topics")}
-        />
+        /> */}
         <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
@@ -276,17 +280,117 @@ const CustomDrawer = (props) => {
           onPress={() => navigation.navigate("Parametre")}
           focused={isFocused("Parametre")}
         />
+        <DrawerItem
+          pressColor="lightgreen"
+          icon={({ focused, color, size }) => (
+            <Box
+              width={40}
+              backgroundColor={"nobg"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <Entypo
+                name="message"
+                size={focused ? 28 : 24}
+                color={focused ? "white" : "#666666"}
+              />
+            </Box>
+          )}
+          label={({ focused }) => {
+            return (
+              <Text style={focused ? styles.activeText : styles.inactiveText}>
+                Message
+              </Text>
+            );
+          }}
+          style={[
+            isFocused("Messages")
+              ? styles.activeContainer
+              : styles.inActiveContainer,
+            { paddingLeft: 25 },
+          ]}
+          onPress={() => navigation.navigate("Messages")}
+          focused={isFocused("Messages")}
+        />
+        <DrawerItem
+          pressColor="lightgreen"
+          icon={({ focused, color, size }) => (
+            <Box
+              width={40}
+              backgroundColor={"nobg"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <Ionicons
+                name="search"
+                size={focused ? 28 : 24}
+                color={focused ? "white" : "#666666"}
+              />
+            </Box>
+          )}
+          label={({ focused }) => {
+            return (
+              <Text style={focused ? styles.activeText : styles.inactiveText}>
+                Recherche
+              </Text>
+            );
+          }}
+          style={[
+            isFocused("Search")
+              ? styles.activeContainer
+              : styles.inActiveContainer,
+            { paddingLeft: 25 },
+          ]}
+          onPress={() => navigation.navigate("Search")}
+          focused={isFocused("Search")}
+        />
+        <DrawerItem
+          pressColor="lightgreen"
+          icon={({ focused, color, size }) => (
+            <Box
+              width={40}
+              backgroundColor={"nobg"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <Ionicons
+                name="notifications"
+                size={focused ? 28 : 24}
+                color={focused ? "white" : "#666666"}
+              />
+            </Box>
+          )}
+          label={({ focused }) => {
+            return (
+              <Text style={focused ? styles.activeText : styles.inactiveText}>
+                Notifications
+              </Text>
+            );
+          }}
+          style={[
+            isFocused("Notifications")
+              ? styles.activeContainer
+              : styles.inActiveContainer,
+            { paddingLeft: 25 },
+          ]}
+          onPress={() => navigation.navigate("Notifications")}
+          focused={isFocused("Notifications")}
+        />
+        {/* <Drawer.Screen name="Search" component={Search} />
+
+<Drawer.Screen name="Messages" component={Messages} />
+<Drawer.Screen name="Notifications" component={Notifications} /> */}
       </DrawerContentScrollView>
       <Button
         title="se déconnecter"
         primary={false}
         onPress={onClickLogout}
-        textProps={{ fontSize:Platform.OS == "ios"?10: 12, color: "black" }}
+        textProps={{ fontSize: Platform.OS == "ios" ? 10 : 12, color: "black" }}
         borderColor={"danger"}
         marginLeft={"xl"}
         width={170}
         height={40}
-        marginBottom={'ml'}
+        marginBottom={"ml"}
       />
     </Box>
   );

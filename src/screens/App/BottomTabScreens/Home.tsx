@@ -20,6 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import useFeedController from "../../../viewController/Feed/FeedController";
 import { useUserContext } from "../../../Context";
 import { EMPTY_FEED_RES } from "../../../constants/general-constants";
+import FabBoutton from "../../../components/shared/FabButton";
 
 const Home = ({ navigation }) => {
   const { user } = useUserContext();
@@ -59,7 +60,7 @@ const Home = ({ navigation }) => {
   console.log("isFecthing", isFetching);
   console.log("isLoading", isLoading);
 
-  if (isLoading) {
+  if (!isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <FeedSkeleton />
@@ -79,7 +80,7 @@ const Home = ({ navigation }) => {
           />
           <SectionHeader title={"Now"} more={true} link={() => {}} />
           <Stories data={FollowingList} /> */}
-          {posts.message.includes(EMPTY_FEED_RES) ? (
+          {posts?.message.includes(EMPTY_FEED_RES) ? (
             <EmptyFeed message="Veuillez suivre des utilisateurs afin de recevoir votre feed" />
           ) : (
             <ErrorDisplayView message={posts.message} />
@@ -88,7 +89,7 @@ const Home = ({ navigation }) => {
       ) : (
         <Box flex={1}>
           <MainHeader title="Accueil" />
-
+          <FabBoutton />
           <FlatList
             ListHeaderComponent={() => (
               <>
@@ -111,18 +112,18 @@ const Home = ({ navigation }) => {
             renderItem={({ item }) => (
               <Post data={item} type={"main"} onPress={handleNavigation} />
             )}
-            ListFooterComponent={() => (
-              <ScrollView
-                horizontal
-                contentContainerStyle={{ paddingBottom: 70 }}
-                showsHorizontalScrollIndicator={false}
-              >
-                <FollowCard />
-                <FollowCard />
-                <FollowCard />
-                <FollowCard />
-              </ScrollView>
-            )}
+            // ListFooterComponent={() => (
+            //   <ScrollView
+            //     horizontal
+            //     contentContainerStyle={{ paddingBottom: 70 }}
+            //     showsHorizontalScrollIndicator={false}
+            //   >
+            //     <FollowCard />
+            //     <FollowCard />
+            //     <FollowCard />
+            //     <FollowCard />
+            //   </ScrollView>
+            // )}
             ListFooterComponentStyle={{ marginBottom: 10 }}
           />
         </Box>
