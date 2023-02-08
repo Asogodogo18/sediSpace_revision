@@ -10,6 +10,8 @@ export { default as Stories } from "./shared/Stories/Stories";
 export { default as Post } from "./shared/Post/Post";
 export { default as MainHeader } from "./shared/MainHeader";
 export { default as Loader } from "./shared/Loader";
+export { default as FabButton } from "./shared/FabButton";
+
 
 export { default as FollowCard } from "./shared/FollowCard/FollowCard";
 export { default as ReplyField } from "./shared/ReplyField";

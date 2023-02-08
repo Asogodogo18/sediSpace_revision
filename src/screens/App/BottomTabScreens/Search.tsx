@@ -18,6 +18,7 @@ import { PostImage, PostMultipleImages } from "../../../data/post";
 import Animated from "react-native-reanimated";
 import useUserSearchController from "../../../viewController/Search/useSearchController";
 import { FlatList } from "react-native-gesture-handler";
+import Layout from "../../Layout";
 
 const AnimatedBox = Animated.createAnimatedComponent(Box);
 
@@ -47,7 +48,8 @@ const Search = ({ navigation }) => {
     return navigation.navigate("HomeStack", { screen: "Publication" });
   };
   return (
-    <Box flex={1} mt={"l"}>
+    <Layout>
+    <Box flex={1} mt={"l"} backgroundColor={'white'}>
       <MainHeader title="Recherche" />
       <Searchbar
         value={searchTerm}
@@ -91,6 +93,7 @@ const Search = ({ navigation }) => {
           />
         )}
     </Box>
+    </Layout>
   );
 };
 

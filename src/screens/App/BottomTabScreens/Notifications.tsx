@@ -32,7 +32,7 @@ const Notifications = () => {
     <SingleNotifPreview onPress={()=>{}} {...item} />
   );
   return (
-    <>
+    <Box flex={1} backgroundColor={'white'}>
       <MainHeader title="Notifications" />
       {/* <NotificationListing data={Notify} /> */}
       <EmptyNotification />
@@ -45,7 +45,7 @@ const Notifications = () => {
       contentContainerStyle={{paddingBottom:80}}
       keyExtractor={(item) => item.id}
     /> */}
-    </>
+    </Box>
   );
 };
 

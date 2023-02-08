@@ -18,6 +18,7 @@ import { useUserContext } from "../../../Context";
 import useChatController from "../../../viewController/Messages/ChatController";
 import { filterDeletedChats } from "../../../utils";
 import { EMPTY_CHAT_RES } from "../../../constants/general-constants";
+import Layout from "../../Layout";
 const { width, height } = Dimensions.get("screen");
 
 const Messages = () => {
@@ -75,7 +76,7 @@ const Messages = () => {
   };
 
   if (isError || [isSuccess, data?.code !== 200].every(Boolean)) {
-    if (data.message.includes(EMPTY_CHAT_RES))
+    if (data?.message?.includes(EMPTY_CHAT_RES))
       return (
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -123,43 +124,45 @@ const Messages = () => {
   }
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      nestedScrollEnabled
-      contentContainerStyle={{ paddingBottom: 50, flexGrow: 1 }}
-    >
-      <Box flex={1} mt={"m"} pt={"m"}>
-        <MainHeader title="Messages" />
-        <Box mb={"ml"}>
-          <Searchbar
-            loader={false}
-            value={search}
-            onChange={onSearchChange}
-            placeholder="Recherche"
-          />
-        </Box>
-        {/* <SwitchControl activeIndex={isActive} onSwitch={onSwitch} />
+    <Layout >
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled
+        contentContainerStyle={{ paddingBottom: 50, flexGrow: 1,backgroundColor:'white' }}
+      >
+        <Box flex={1} mt={"m"} pt={"m"}>
+          <MainHeader title="Messages" />
+          <Box mb={"ml"}>
+            <Searchbar
+              loader={false}
+              value={search}
+              onChange={onSearchChange}
+              placeholder="Recherche"
+            />
+          </Box>
+          {/* <SwitchControl activeIndex={isActive} onSwitch={onSwitch} />
         <SectionHeader title={"En Ligne"} more={true} />
 
         <Stories data={FollowingList} />
         <SectionHeader title={"Tous Les Messages"} more={false} /> */}
 
-        {isActive === 0 ? (
-          <MessageListing
-            refetchChats={refetchChat}
-            states={{
-              isLoading,
-              isError,
-              isFetching,
-              isSuccess,
-              isUninitialized,
-              error,
-            }}
-            data={chatData}
-          />
-        ) : null}
-      </Box>
-    </ScrollView>
+          {isActive === 0 ? (
+            <MessageListing
+              refetchChats={refetchChat}
+              states={{
+                isLoading,
+                isError,
+                isFetching,
+                isSuccess,
+                isUninitialized,
+                error,
+              }}
+              data={chatData}
+            />
+          ) : null}
+        </Box>
+      </ScrollView>
+    </Layout>
   );
 };
 
