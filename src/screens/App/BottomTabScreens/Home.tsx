@@ -36,7 +36,8 @@ const Home = ({ navigation }) => {
   const [postData, setPostData] = useState([]);
   // console.log("posts: ", postData);
 
-  // console.log("user id homescreen: ", posts);
+  console.log('user home screen: ', user)
+  console.log("user id homescreen: ", posts);
 
   useEffect(() => {
     if (posts?.code === 200) {
@@ -50,7 +51,7 @@ const Home = ({ navigation }) => {
   }, [posts]);
 
   const onRefreshFeed = async () => {
-    return await refetch(user?.id);
+    return await refetch();
   };
 
   const handleNavigation = (id: string | number) => {
