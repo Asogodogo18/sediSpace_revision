@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
   const [postData, setPostData] = useState([]);
   // console.log("posts: ", postData);
 
-  // console.log("user id homescreen: ", posts);
+  console.log("user id homescreen: ", posts);
 
   useEffect(() => {
     if (posts?.code === 200) {
