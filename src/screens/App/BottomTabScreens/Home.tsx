@@ -67,7 +67,7 @@ const Home = ({ navigation }) => {
   console.log("isFecthing", isFetching);
   console.log("isLoading", isLoading);
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <FeedSkeleton />
