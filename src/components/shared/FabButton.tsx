@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Alert, Animated, Platform, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Animated,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Icon from "@expo/vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import Box from "./Box";
@@ -43,13 +49,13 @@ const FabBoutton = () => {
         {
           position: "absolute",
           alignItems: "center",
-          bottom:30,
-          height:60,
-          right:15,
-
+          bottom: 10,
+          height: 60,
+          right: 15,
+          zIndex: 10,
           borderRadius: 65,
           borderColor: "white",
-          elevation: 5,
+          elevation: 15,
           shadowColor: "#000",
           shadowOffset: {
             height: 5,
@@ -58,8 +64,6 @@ const FabBoutton = () => {
         },
       ]}
     >
-      
-
       <AnimatedTouch
         onPress={toggleView}
         style={[
@@ -77,7 +81,6 @@ const FabBoutton = () => {
             height: SIZE,
             justifyContent: "center",
             alignItems: "center",
-            
           }}
           colors={["#26FFCB", "#1F9354"]}
         >

@@ -11,7 +11,7 @@ const useLikedPosts = (props: Props) => {
   const [allPosts, setAllPosts] = useState([]);
   const [likedPostdata, setLikedPostdata] = useState([]);
   const [getAllPostsMutation, { isLoading }] = useGetAllPostsMutation();
-
+  const [error, setError] = useState("");
   console.log("likedPosts : ", likedPostdata);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const useLikedPosts = (props: Props) => {
       }
     } catch (error) {
       console.log("likedPosts: ", error);
+      setError(error);
     }
   };
   const getLikedPosts = async (userID: string) => {
@@ -70,6 +71,13 @@ const useLikedPosts = (props: Props) => {
       : setLikedPostdata([...likedPostdata, ...filteredPosts]);
   };
 
-  return { getLikedPosts, loadMore, likedPostdata, isLoading, hasNextPage };
+  return {
+    getLikedPosts,
+    loadMore,
+    likedPostdata,
+    isLoading,
+    hasNextPage,
+    error,
+  };
 };
 export default useLikedPosts;

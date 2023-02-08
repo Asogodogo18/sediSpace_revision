@@ -16,6 +16,7 @@ import { UserProvider } from "./src/Context";
 import { Provider } from "react-redux";
 import store from "./src/store/store";
 import { toastConfig } from "./src/utils/toastHandler";
+import { NetworkProvider } from "./src/Context/NetworkProvider";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -29,11 +30,13 @@ export default function App() {
         <SafeAreaProvider>
           {/* <Navigation colorScheme={colorScheme} /> */}
           <NavigationContainer>
-            <StatusBar backgroundColor="black" barStyle={"light-content"}  />
+            <StatusBar backgroundColor="black" barStyle={"light-content"} />
             <Provider store={store}>
               <UserProvider>
                 <MenuProvider>
-                  <RootStack />
+                  <NetworkProvider>
+                    <RootStack />
+                  </NetworkProvider>
                 </MenuProvider>
               </UserProvider>
             </Provider>

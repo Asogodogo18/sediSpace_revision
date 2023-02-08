@@ -6,9 +6,10 @@ import Text from "./Text";
 
 type MainHeaderProps = {
   title: string;
+  option?: boolean;
 };
 
-const MainHeader: React.FC<MainHeaderProps> = ({ title }) => {
+const MainHeader: React.FC<MainHeaderProps> = ({ title, option = false }) => {
   return (
     <Box
       flexDirection={"row"}
@@ -16,13 +17,15 @@ const MainHeader: React.FC<MainHeaderProps> = ({ title }) => {
       my={"ml"}
       p={"m"}
       maxHeight={80}
-      width={'100%'}
-      alignItems={'center'}
+      width={"100%"}
+      alignItems={"center"}
     >
       <Text variant={"header"}>{title}</Text>
-      <TouchableOpacity>
-        <SimpleLineIcons name="options" size={24} color="black" />
-      </TouchableOpacity>
+      {option ? (
+        <TouchableOpacity>
+          <SimpleLineIcons name="options" size={24} color="black" />
+        </TouchableOpacity>
+      ) : null}
     </Box>
   );
 };
