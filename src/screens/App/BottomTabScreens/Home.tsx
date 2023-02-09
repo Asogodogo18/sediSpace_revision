@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
     refetch,
   } = getFeedList(user?.id);
   const [postData, setPostData] = useState([]);
-  // console.log("posts: ", postData);
+  console.log("posts: ", postData.length);
 
   console.log("user home screen: ", user);
   console.log("user id homescreen: ", posts);
@@ -76,6 +76,10 @@ const Home = ({ navigation }) => {
         <FeedSkeleton />
       </SafeAreaView>
     );
+  }
+
+  if (postData.length == 0) {
+    navigation.navigate("Search");
   }
 
   return (

@@ -153,7 +153,7 @@ const CustomDrawer = (props) => {
           onPress={() => navigation.navigate("Education")}
           focused={isFocused("Education")}
         /> */}
-        {/* <DrawerItem
+        <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
             <Box
@@ -163,7 +163,7 @@ const CustomDrawer = (props) => {
               justifyContent={"center"}
             >
               <MaterialCommunityIcons
-                name="apps"
+                name="search-web"
                 size={focused ? 28 : 24}
                 color={focused ? "white" : "#666666"}
               />
@@ -172,7 +172,7 @@ const CustomDrawer = (props) => {
           label={({ focused }) => {
             return (
               <Text style={focused ? styles.activeText : styles.inactiveText}>
-                Nos Outils
+                Recherche
               </Text>
             );
           }}
@@ -182,9 +182,9 @@ const CustomDrawer = (props) => {
               : styles.inActiveContainer,
             { paddingLeft: 25 },
           ]}
-          onPress={() => navigation.navigate("Tools")}
+          onPress={() => navigation.navigate("Search")}
           focused={isFocused("Tools")}
-        /> */}
+        />
         <DrawerItem
           pressColor="lightgreen"
           icon={({ focused, color, size }) => (
