@@ -13,7 +13,8 @@ import {
 } from "../../../components";
 
 import React, { useEffect, useState } from "react";
-import { ScrollView, StatusBar, FlatList } from "react-native";
+import { ScrollView, StatusBar, FlatList, Dimensions } from "react-native";
+import EmptyFeedBG from "../../../../assets/images/EmptyContentBG.svg";
 
 import defaultFilters from "../../../data/feed";
 import FollowingList from "../../../data/stories";
@@ -22,6 +23,8 @@ import useFeedController from "../../../viewController/Feed/FeedController";
 import { useUserContext } from "../../../Context";
 import { EMPTY_FEED_RES } from "../../../constants/general-constants";
 import FabBoutton from "../../../components/shared/FabButton";
+
+const { width } = Dimensions.get("screen");
 
 const Home = ({ navigation }) => {
   const { user } = useUserContext();
@@ -37,7 +40,7 @@ const Home = ({ navigation }) => {
   const [postData, setPostData] = useState([]);
   // console.log("posts: ", postData);
 
-  console.log('user home screen: ', user)
+  console.log("user home screen: ", user);
   console.log("user id homescreen: ", posts);
 
   useEffect(() => {
@@ -122,16 +125,27 @@ const Home = ({ navigation }) => {
               <Post data={item} type={"main"} onPress={handleNavigation} />
             )}
             ListFooterComponent={() => (
-              <ScrollView
-                horizontal
-                contentContainerStyle={{ paddingBottom: 70 }}
-                showsHorizontalScrollIndicator={false}
+              <Box
+                marginVertical={"m"}
+                flex={1}
+                minHeight={320}
+                justifyContent={"center"}
+                alignItems={"center"}
               >
-                <FollowCard />
-                <FollowCard />
-                <FollowCard />
-                <FollowCard />
-              </ScrollView>
+                <EmptyFeedBG
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    alignSelf: "center",
+                  }}
+                  width={"100%"}
+                  height={250}
+                />
+                <Text variant={"title1"}>
+                  Aucun Nouveau Poste en ce moment.
+                </Text>
+              </Box>
             )}
             ListFooterComponentStyle={{ marginBottom: 10 }}
           />

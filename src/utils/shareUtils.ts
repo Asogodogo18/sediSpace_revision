@@ -1,4 +1,4 @@
-import { Share } from "react-native";
+import { Platform, Share } from "react-native";
 
 type sharePostsProps = {
   message?: string;
@@ -15,6 +15,9 @@ export const sharePosts = async ({ message, url }: sharePostsProps) => {
     message =
       "Rejoignez-nous sur SediSpace: Un réseau pour le monde mais surtout pour notre continent africain alors venez nous rejoindre sur SEDISPACE .";
 
+  if (Platform.OS === "android") {
+    message += " " + url;
+  }
   return await Share.share(
     {
       message,

@@ -13,6 +13,7 @@ import { useAuthController } from "../../viewController";
 import launchImagePicker from "../../utils/ImagePicker";
 import useUserController from "../../viewController/Users/UserController";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { toastError } from "../../utils/toastHandler";
 
 const Infos = () => {
   const { user } = useUserContext();
@@ -78,23 +79,26 @@ const Infos = () => {
   const onSubmit = async () => {
     const payload = { name, bio, email, sexe, surName, urlSite, username };
     console.log("profile update submitted");
-
-    const status = await updateUserProfile(payload);
-    if (status === true) setDataUpdated(false);
+    try {
+      const status = await updateUserProfile(payload);
+      if (status === true) setDataUpdated(false);
+    } catch (error) {
+      toastError(error.toString());
+    }
   };
 
   const handleAvatarUpdate = async () => {
     let imagePicked = await launchImagePicker();
     if (imagePicked) {
-      setProfileImage(imagePicked);
-      updateUserAvatar(imagePicked);
+      setProfileImage(imagePicked[0]?.uri);
+      updateUserAvatar(imagePicked[0]?.uri);
     }
   };
 
   const handleCoverUpdate = async () => {
     let imagePicked = await launchImagePicker();
     if (imagePicked) {
-      updateUserCover(imagePicked);
+      updateUserCover(imagePicked[0]?.uri);
     }
   };
 
@@ -108,115 +112,115 @@ const Infos = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{flex:1}}>
-    <Box flex={1}>
-      <Box
-        flexDirection={"row"}
-        // backgroundColor={"white"}
-        // elevation={5}
-
-        width={"100%"}
-        mt={"xl"}
-        p={"ml"}
-        // justifyContent={"center"}
-        alignItems={"center"}
-      style={{marginTop:-9,backgroundColor:'white',elevation:5}}
-      >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="ios-chevron-back" size={30} color="black" />
-        </TouchableOpacity>
-        <Text variant={"titleBold"} marginLeft={"xl"}>
-          Informations Profil
-        </Text>
-      </Box>
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={{ marginVertical: 15 }}
-        onPress={handleAvatarUpdate}
-      >
-        <Avatar type="main" source={{ uri: profileImage }} />
+    <SafeAreaView style={{ flex: 1 }}>
+      <Box flex={1}>
         <Box
-          width={30}
-          height={30}
-          borderRadius={30}
-          elevation={8}
-          backgroundColor={"white"}
-          borderWidth={2}
-          borderColor={"black"}
-          position={"relative"}
-          top={-20}
-          alignSelf={"center"}
-          left={50}
-          justifyContent={"center"}
+          flexDirection={"row"}
+          // backgroundColor={"white"}
+          // elevation={5}
+
+          width={"100%"}
+          mt={"xl"}
+          p={"ml"}
+          // justifyContent={"center"}
           alignItems={"center"}
+          style={{ marginTop: -9, backgroundColor: "white", elevation: 5 }}
         >
-          <Feather name="edit-2" size={16} color="black" />
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="ios-chevron-back" size={30} color="black" />
+          </TouchableOpacity>
+          <Text variant={"titleBold"} marginLeft={"xl"}>
+            Informations Profil
+          </Text>
         </Box>
-      </TouchableOpacity>
-      <TouchableOpacity
-      onPress={handleCoverUpdate}
-        style={{
-          borderRadius: 4,
-          borderWidth: 1,
-          borderColor: "green",
-          justifyContent: "center",
-          alignItems: "center",
-          marginHorizontal: 40,
-          height: 35,
-          flexDirection: "row",
-          marginBottom:15
-        }}
-      >
-        <AntDesign name="picture" size={20} color="green" />
-        <Text ml={"s"} variant={"title1"}>
-          Changer la Photo de Couverture
-        </Text>
-      </TouchableOpacity>
-      <SectionInput data={userField} title="Identité" />
-      <Line
-        width={"100%"}
-        height={2}
-        alignSelf={"center"}
-        backgroundColor={"lightgreen"}
-      />
-      <SectionInput data={adress} title="Adresse Electronique" />
-      <Line
-        width={"100%"}
-        height={2}
-        alignSelf={"center"}
-        backgroundColor={"lightgreen"}
-      />
-      <SectionInput data={webSite} title="Site Web" />
-      <Line
-        width={"100%"}
-        height={2}
-        alignSelf={"center"}
-        backgroundColor={"lightgreen"}
-      />
-      <SectionInput data={biographie} title="Votre Biographie" />
-      <Line
-        width={"100%"}
-        height={2}
-        alignSelf={"center"}
-        backgroundColor={"lightgreen"}
-      />
-      <TextInput
-        m={"xl"}
-        type="dropdown"
-        value={sexe}
-        dropdownValues={["Votre Sexe?", "Masculin", "Feminin"]}
-        onChange={setSexe}
-      />
-      {dataUpdated && (
-        <Button
-          primary
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{ marginVertical: 15 }}
+          onPress={handleAvatarUpdate}
+        >
+          <Avatar type="main" source={{ uri: profileImage }} />
+          <Box
+            width={30}
+            height={30}
+            borderRadius={30}
+            elevation={8}
+            backgroundColor={"white"}
+            borderWidth={2}
+            borderColor={"black"}
+            position={"relative"}
+            top={-20}
+            alignSelf={"center"}
+            left={50}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Feather name="edit-2" size={16} color="black" />
+          </Box>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleCoverUpdate}
+          style={{
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: "green",
+            justifyContent: "center",
+            alignItems: "center",
+            marginHorizontal: 40,
+            height: 35,
+            flexDirection: "row",
+            marginBottom: 15,
+          }}
+        >
+          <AntDesign name="picture" size={20} color="green" />
+          <Text ml={"s"} variant={"title1"}>
+            Changer la Photo de Couverture
+          </Text>
+        </TouchableOpacity>
+        <SectionInput data={userField} title="Identité" />
+        <Line
+          width={"100%"}
+          height={2}
           alignSelf={"center"}
-          loading={false}
-          title="Enregistrer"
-          onPress={onSubmit}
+          backgroundColor={"lightgreen"}
         />
-      )}
-    </Box>
+        <SectionInput data={adress} title="Adresse Electronique" />
+        <Line
+          width={"100%"}
+          height={2}
+          alignSelf={"center"}
+          backgroundColor={"lightgreen"}
+        />
+        <SectionInput data={webSite} title="Site Web" />
+        <Line
+          width={"100%"}
+          height={2}
+          alignSelf={"center"}
+          backgroundColor={"lightgreen"}
+        />
+        <SectionInput data={biographie} title="Votre Biographie" />
+        <Line
+          width={"100%"}
+          height={2}
+          alignSelf={"center"}
+          backgroundColor={"lightgreen"}
+        />
+        <TextInput
+          m={"xl"}
+          type="dropdown"
+          value={sexe}
+          dropdownValues={["Votre Sexe?", "Masculin", "Feminin"]}
+          onChange={setSexe}
+        />
+        {dataUpdated && (
+          <Button
+            primary
+            alignSelf={"center"}
+            loading={false}
+            title="Enregistrer"
+            onPress={onSubmit}
+          />
+        )}
+      </Box>
     </SafeAreaView>
   );
 };
